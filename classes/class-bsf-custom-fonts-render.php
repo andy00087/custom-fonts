@@ -178,7 +178,7 @@ if ( ! class_exists( 'Bsf_Custom_Fonts_Render' ) ) :
 				echo '<optgroup label="Custom">';
 
 			foreach ( $fonts as $font => $links ) {
-				echo '<option value="' . esc_attr( $font ) . '" ' . selected( $font, $value, false ) . '>' . esc_attr( $font ) . '</option>';
+				echo '<option value="\'' . esc_attr( $font ) . '\'" '. selected( '\'' . esc_attr( $font ) . '\'', $value, false ) . '>' . esc_attr( $font ) . '</option>';
 			}
 		}
 
@@ -223,7 +223,7 @@ if ( ! class_exists( 'Bsf_Custom_Fonts_Render' ) ) :
 			$fonts = Bsf_Custom_Fonts_Taxonomy::get_links_by_name( $font );
 
 			foreach ( $fonts as $font => $links ) :
-				$css  = '@font-face { font-family:' . esc_attr( $font ) . ';';
+				$css  = '@font-face { font-family:"' . esc_attr( $font ) . '";';
 				$css .= 'src:';
 				$arr  = array();
 				if ( $links['font_woff_2'] ) {
