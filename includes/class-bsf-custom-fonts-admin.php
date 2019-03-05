@@ -136,11 +136,38 @@ if ( ! class_exists( 'Bsf_Custom_Fonts_Admin' ) ) :
 		 * @since 1.0.0
 		 */
 		public function add_new_taxonomy_data() {
-			$this->font_file_new_field( 'font_woff_2', __( 'Font .woff2', 'custom-fonts' ), __( 'Upload the font\'s woff2 file or enter the URL.', 'custom-fonts' ) );
-			$this->font_file_new_field( 'font_woff', __( 'Font .woff', 'custom-fonts' ), __( 'Upload the font\'s woff file or enter the URL.', 'custom-fonts' ) );
-			$this->font_file_new_field( 'font_ttf', __( 'Font .ttf', 'custom-fonts' ), __( 'Upload the font\'s ttf file or enter the URL.', 'custom-fonts' ) );
-			$this->font_file_new_field( 'font_eot', __( 'Font .eot', 'custom-fonts' ), __( 'Upload the font\'s eot file or enter the URL.', 'custom-fonts' ) );
-			$this->font_file_new_field( 'font_svg', __( 'Font .svg', 'custom-fonts' ), __( 'Upload the font\'s svg file or enter the URL.', 'custom-fonts' ) );
+			// $this->font_file_new_field( 'font_woff_2', __( 'Font .woff2', 'custom-fonts' ), __( 'Upload the font\'s woff2 file or enter the URL.', 'custom-fonts' ) );
+			// $this->font_file_new_field( 'font_woff', __( 'Font .woff', 'custom-fonts' ), __( 'Upload the font\'s woff file or enter the URL.', 'custom-fonts' ) );
+			// $this->font_file_new_field( 'font_ttf', __( 'Font .ttf', 'custom-fonts' ), __( 'Upload the font\'s ttf file or enter the URL.', 'custom-fonts' ) );
+			// $this->font_file_new_field( 'font_eot', __( 'Font .eot', 'custom-fonts' ), __( 'Upload the font\'s eot file or enter the URL.', 'custom-fonts' ) );
+			// $this->font_file_new_field( 'font_svg', __( 'Font .svg', 'custom-fonts' ), __( 'Upload the font\'s svg file or enter the URL.', 'custom-fonts' ) );
+
+			wp_enqueue_script( 'bsf-ac-custom-fonts-js', BSF_CUSTOM_FONTS_URI . 'assets/js/jquery.ac-form-field-repeater.js', array(), BSF_CUSTOM_FONTS_VER );
+			?>
+			<div class="bsf-custom-fonts-file-wrap form-field term-<?php echo esc_attr( $id ); ?>-wrap" data-ac-repeater="myrow" >
+
+				<label for="font-font_woff_2"><?php echo __( 'Font .woff2', 'custom-fonts' ); ?></label>
+				<input type="text" id="font-font_woff_2" class="bsf-custom-fonts-link font_woff_2" name="<?php echo Bsf_Custom_Fonts_Taxonomy::$register_taxonomy_slug; ?>[font_woff_2]" value="<?php echo esc_attr( $value ); ?>" />
+				<a href="#" class="bsf-custom-fonts-upload button" data-upload-type="font_woff_2"><?php esc_html_e( 'Upload', 'custom-fonts' ); ?></a>
+				<p><?php echo __( 'Upload the font\'s woff2 file or enter the URL.', 'custom-fonts' ); ?></p>
+				<label for="font-font_woff"><?php echo __( 'Font .woff', 'custom-fonts' ); ?></label>
+				<input type="text" id="font-font_woff" class="bsf-custom-fonts-link font_woff" name="<?php echo Bsf_Custom_Fonts_Taxonomy::$register_taxonomy_slug; ?>[font_woff]" value="<?php echo esc_attr( $value ); ?>" />
+				<a href="#" class="bsf-custom-fonts-upload button" data-upload-type="font_woff"><?php esc_html_e( 'Upload', 'custom-fonts' ); ?></a>
+				<p><?php echo __( 'Upload the font\'s woff file or enter the URL.', 'custom-fonts' ); ?></p>
+				<label for="font-font_ttf"><?php echo __( 'Font .ttf', 'custom-fonts' ); ?></label>
+				<input type="text" id="font-font_ttf" class="bsf-custom-fonts-link font_ttf" name="<?php echo Bsf_Custom_Fonts_Taxonomy::$register_taxonomy_slug; ?>[font_ttf]" value="<?php echo esc_attr( $value ); ?>" />
+				<a href="#" class="bsf-custom-fonts-upload button" data-upload-type="font_ttf"><?php esc_html_e( 'Upload', 'custom-fonts' ); ?></a>
+				<p><?php echo __( 'Upload the font\'s ttf file or enter the URL.', 'custom-fonts' ); ?></p>
+				<label for="font-font_eot"><?php echo __( 'Font .eot', 'custom-fonts' ); ?></label>
+				<input type="text" id="font-font_eot" class="bsf-custom-fonts-link font_eot" name="<?php echo Bsf_Custom_Fonts_Taxonomy::$register_taxonomy_slug; ?>[font_eot]" value="<?php echo esc_attr( $value ); ?>" />
+				<a href="#" class="bsf-custom-fonts-upload button" data-upload-type="font_eot"><?php esc_html_e( 'Upload', 'custom-fonts' ); ?></a>
+				<p><?php echo __( 'Upload the font\'s eot file or enter the URL.', 'custom-fonts' ); ?></p>
+				<label for="font-font_svg"><?php echo __( 'Font .svg', 'custom-fonts' ); ?></label>
+				<input type="text" id="font-font_svg" class="bsf-custom-fonts-link font_svg" name="<?php echo Bsf_Custom_Fonts_Taxonomy::$register_taxonomy_slug; ?>[font_svg]" value="<?php echo esc_attr( $value ); ?>" />
+				<a href="#" class="bsf-custom-fonts-upload button" data-upload-type="font_svg"><?php esc_html_e( 'Upload', 'custom-fonts' ); ?></a>
+				<p><?php echo __( 'Upload the font\'s svg file or enter the URL.', 'custom-fonts' ); ?></p>
+			</div>
+			<?php
 		}
 
 		/**
@@ -168,8 +195,9 @@ if ( ! class_exists( 'Bsf_Custom_Fonts_Admin' ) ) :
 		 * @param string $value title font type meta values.
 		 */
 		protected function font_file_new_field( $id, $title, $description, $value = '' ) {
+			wp_enqueue_script( 'bsf-ac-custom-fonts-js', BSF_CUSTOM_FONTS_URI . 'assets/js/jquery.ac-form-field-repeater.js', array(), BSF_CUSTOM_FONTS_VER );
 			?>
-			<div class="bsf-custom-fonts-file-wrap form-field term-<?php echo esc_attr( $id ); ?>-wrap" >
+			<div class="bsf-custom-fonts-file-wrap form-field term-<?php echo esc_attr( $id ); ?>-wrap" data-ac-repeater="myrow" >
 
 				<label for="font-<?php echo esc_attr( $id ); ?>"><?php echo esc_html( $title ); ?></label>
 				<input type="text" id="font-<?php echo esc_attr( $id ); ?>" class="bsf-custom-fonts-link <?php echo esc_attr( $id ); ?>" name="<?php echo Bsf_Custom_Fonts_Taxonomy::$register_taxonomy_slug; ?>[<?php echo esc_attr( $id ); ?>]" value="<?php echo esc_attr( $value ); ?>" />
