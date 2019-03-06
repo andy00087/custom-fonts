@@ -10,3 +10,7 @@
 .form-field.bsf-custom-fonts-file-wrap input[type=text] {
     width: 83%;
 }
+
+.col-wrap p.submit {
+	margin-top: auto;
+}
